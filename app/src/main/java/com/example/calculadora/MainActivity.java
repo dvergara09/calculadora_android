@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
 public class MainActivity extends AppCompatActivity {
     Button btnUno, btnDos, btnTres, btnCuatro, btnCinco, btnSeis, btnSiete, btnOcho, btnNueve, btnCero,
             suma, resta, multiplicacion, division, borrar, decimal, igual;
@@ -117,11 +122,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnCero.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                mostrar = cajatxt.getText().toString();
+                mostrar = mostrar + "0";
+                cajatxt.setText(mostrar);
+            }
+        });
+
         suma.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 reserva = cajatxt.getText().toString();
                 operador = "+";
-                cajatxt.setText("");
+                mostrar = mostrar+"+";
+                cajatxt.setText(mostrar);
             }
         });
 
@@ -129,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 reserva = cajatxt.getText().toString();
                 operador = "-";
-                cajatxt.setText("");
+                mostrar = mostrar+"-";
+                cajatxt.setText(mostrar);
             }
         });
 
@@ -137,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 reserva = cajatxt.getText().toString();
                 operador = "*";
-                cajatxt.setText("");
+                mostrar = mostrar+"*";
+                cajatxt.setText(mostrar);
             }
         });
 
@@ -145,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 reserva = cajatxt.getText().toString();
                 operador = "/";
-                cajatxt.setText("");
+                mostrar = mostrar+"/";
+                cajatxt.setText(mostrar);
             }
         });
 
@@ -171,8 +188,56 @@ public class MainActivity extends AppCompatActivity {
         igual.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 mostrar = cajatxt.getText().toString();
-                mostrar = mostrar + "1";
-                if(operador.equals("-")){
+                int tamaño = mostrar.length();
+                String A[] =  new String[100];
+                String operaciones[] = new String[100];
+                int pos = 0;
+                int sum = 0;
+                String aux = "";
+
+                operaciones[0] = "+";
+                int index_op = 1;
+                for(int i=0; i<tamaño; i++) {
+                    if (mostrar.charAt(i) == '+' || mostrar.charAt(i) == '-' || mostrar.charAt(i) == '*' || mostrar.charAt(i) == '/'){
+                        A[pos] = aux;
+                        operaciones[index_op] = String.valueOf(mostrar.charAt(i));
+                        pos++;
+                        index_op++;
+                        aux="";
+                    }else{
+                        aux= aux+mostrar.charAt(i);
+                    }
+                }
+                A[pos] = aux;
+                pos++;
+                for (int i = 0; i<pos; i++){
+                    if(operaciones[i].equals("*")){
+                        sum= sum*Integer.parseInt(A[i]);
+                    }else if(operaciones[i].equals("/")){
+                        sum= sum/Integer.parseInt(A[i]);
+                    }else if(operaciones[i].equals("+")){
+                        sum= sum+Integer.parseInt(A[i]);
+                    }else if(operaciones[i].equals("-")){
+                        sum= sum-Integer.parseInt(A[i]);
+                    }
+                }
+                //ArrayList<String> signos = new ArrayList<String>();
+                //ArrayList<String> numeros = new ArrayList<String>();
+                //StringTokenizer st = new StringTokenizer(mostrar,"+-*/", true);
+
+                //while(st.hasMoreTokens()){
+                   // String token = st.nextToken();
+                    //if("+-*/".contains(token)){
+                      //  signos.add(token);
+                    //}else{
+                     //   numeros.add(token);
+                   // }
+                //}
+
+
+                cajatxt2.setText(String.valueOf(sum));
+
+                /*if(operador.equals("-")){
                     resultado = Double.parseDouble(reserva) - Double.parseDouble(cajatxt.getText().toString());
                     cajatxt.setText(String.valueOf(resultado));
                 }
@@ -187,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 if(operador.equals("*")){
                     resultado = Double.parseDouble(reserva) * Double.parseDouble(cajatxt.getText().toString());
                     cajatxt.setText(String.valueOf(resultado));
-                }
+                }*/
             }
         });
 
