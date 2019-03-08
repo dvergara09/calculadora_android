@@ -1,5 +1,6 @@
 package com.example.calculadora;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,11 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnUno, btnDos, btnTres, btnCuatro, btnCinco, btnSeis, btnSiete, btnOcho, btnNueve,
+    Button btnUno, btnDos, btnTres, btnCuatro, btnCinco, btnSeis, btnSiete, btnOcho, btnNueve, btnCero,
             suma, resta, multiplicacion, division, borrar, decimal, igual;
-    TextView cajatxt;
+    TextView cajatxt, cajatxt2;
     double resultado;
     String operador, mostrar , reserva;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btnSiete        = (Button)findViewById(R.id.btn7);
         btnOcho         = (Button)findViewById(R.id.btn8);
         btnNueve        = (Button)findViewById(R.id.btn9);
+        btnCero         = (Button)findViewById(R.id.btn0);
         suma            = (Button)findViewById(R.id.sum);
         resta           = (Button)findViewById(R.id.rest);
         multiplicacion  = (Button)findViewById(R.id.mul);
@@ -34,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         borrar          = (Button)findViewById(R.id.btndel);
         decimal         = (Button)findViewById(R.id.btndec);
         igual           = (Button)findViewById(R.id.equal);
-        cajatxt       = (TextView)findViewById(R.id.txt);
+        cajatxt         = (TextView)findViewById(R.id.txt);
+        cajatxt2        = (TextView)findViewById(R.id.txt2);
+
 
         btnUno.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -188,4 +193,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void onClick(View view){
+        Intent myIntent = new Intent(MainActivity.this, history.class);
+        startActivity(myIntent);
+    }
+
+
 }
